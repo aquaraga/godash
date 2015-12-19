@@ -23,7 +23,8 @@
   "scripts": {
     "test": "mocha --reporter nyan --compilers js:babel-core/register --recursive",
     "watch": "gulp watch",
-    "build": "gulp build"
+    "build": "gulp build",
+    "server": "gulp server"
   },
   "author": "Maurizio Mangione",
   "license": "MIT",
