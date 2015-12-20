@@ -7,7 +7,7 @@ import _ from 'whatwg-fetch';
 window.React = React;
 
 var refreshDashboard = function(){
-  fetch(config.url).then(function(response){
+  fetch(config.gocd_dashboard).then(function(response){
     console.log('Response', response);
     if (response.status >= 200 && response.status < 300) {
       return response;

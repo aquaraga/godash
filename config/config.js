@@ -1,5 +1,5 @@
 window.config = {
-  url: "http://localhost:9966/db",
+  gocd_dashboard: "http://localhost:9966/db",
   interests: [
     "PerformanceAnalytics-Build-Master",
     "PerformanceAnalytics-Smoke",
