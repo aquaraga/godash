@@ -24,6 +24,10 @@ __When you are done, create a production ready version of the JS bundle:__
 
 `npm run build`
 
+__To run the server__
+
+`npm run start`
+
 ## License
 
 [MIT License](http://opensource.org/licenses/MIT)
