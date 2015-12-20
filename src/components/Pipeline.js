@@ -7,8 +7,8 @@ export default React.createClass({
   	let stages = details.instances[0].stages.map(stage => (<Stage data={stage}/>));
     return (
       <div className='pipeline'>
-        <div className='pipeline-name'>{details.name}</div>
         <div className='stage-container'>{stages}</div>
+        <div className='pipeline-name'>{details.name}</div>
       </div>
     );
   }

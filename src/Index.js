@@ -9,12 +9,13 @@ const data = [{
     "instances": [{
       "stages": [{
         "name": "Stage-1",
+        "status": "Passed"
       }, {
-        "name": "Stage-2"
+        "name": "Stage-2",
+        "status": "Building"
       }]
     }]
   }];
-console.log('Index called');
 render(
   <Dashboard pipelines={data}/>, document.getElementById('content')
 );

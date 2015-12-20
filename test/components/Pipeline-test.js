@@ -28,13 +28,13 @@ describe('Pipeline', () => {
   it('should show the pipeline name', () => {
     let details = pipeline.props.children;
     expect(details).to.not.be.undefined;
-    expect(details[0]).to.deep.equal(<div className='pipeline-name'>Pipeline-1</div>);
+    expect(details[1]).to.deep.equal(<div className='pipeline-name'>Pipeline-1</div>);
 
   });
 
   it('should show the pipeline details', () => {
     let details = pipeline.props.children;
-    expect(details[1]).to.deep.equal(
+    expect(details[0]).to.deep.equal(
       <div className='stage-container'>
         <Stage data={data.instances[0].stages[0]}/>
         <Stage data={data.instances[0].stages[1]}/>
