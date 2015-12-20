@@ -30,7 +30,7 @@ var refreshDashboard = function(){
       throw error;
     }
     render(
-      <Dashboard pipelines={interestedPipelines}/>, document.getElementById('content')
+      <Dashboard pipelines={interestedPipelines} stage_detail_interests={config.stage_detail_interests}/>, document.getElementById('content')
     );    
   }).catch(function(error) {
     console.log('Error: ', error);

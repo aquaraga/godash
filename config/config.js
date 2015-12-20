@@ -14,5 +14,11 @@ window.config = {
     "LandingPageSeed-Build",
     "AuthProxy",
   ],
+  stage_detail_interests: [
+    {
+      pipeline: "PerformanceAnalytics-QA",
+      stages: ["FunctionalTest"]
+    }
+  ],
   interval: 30000
 };
