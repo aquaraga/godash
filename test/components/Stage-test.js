@@ -2,6 +2,8 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import Stage from '../../src/components/Stage';
+import sinon from 'sinon';
+import Gocd from '../../src/lib/Gocd';
 
 if (!global.document) {
   global.document = require("jsdom-no-contextify").jsdom("<!doctype html><html><body></body></html>");
@@ -90,5 +92,47 @@ describe('Stage', () => {
 
     let box = TestUtils.findRenderedDOMComponentWithTag(stage, "div");
     expect(box.className).to.contain("building");
+  });
+
+  describe('with job status details', () => {
+    beforeEach(() => {
+      let jobDetails = [{"name": "Job-1", "status": "Passed"}, 
+        {"name": "Job-2", "status": "Failed"}];
+      sinon.stub(Gocd, "fetchJobs", () => jobDetails);
+    });
+
+
+    it('should not show stage status', () => {
+      const data = {
+        "name": "Stage-1",
+        "status": "Failed"
+      };
+      let stage = TestUtils.renderIntoDocument(<Stage drillDown={true} data={data}/>);
+
+      let box = TestUtils.findRenderedDOMComponentWithClass(stage, "stage");
+
+      expect(box.className).to.not.contain("failed");
+    });
+
+
+    it('should stack job statuses', () => {
+      const data = {
+        "name": "Stage-1",
+        "status": "Failed"
+      };
+      let stage = TestUtils.renderIntoDocument(<Stage drillDown={true} data={data}/>);
+      let box = TestUtils.findRenderedDOMComponentWithClass(stage, "stage");
+
+      expect(box.className).to.contain("fill-height-or-more");
+      let jobs = TestUtils.scryRenderedDOMComponentsWithClass(stage, "job");
+      expect(jobs.length).to.equal(2);
+      expect(jobs[0].className).to.contain("passed");
+      expect(jobs[1].className).to.contain("failed");
+    });
+
+    afterEach(() => {
+      Gocd.fetchJobs.restore();
+    });
+
   });
 });

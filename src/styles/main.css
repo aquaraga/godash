@@ -52,6 +52,21 @@
     color: #8a0000;
 }
 
+.fill-height-or-more {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  > div {
+    flex: 1;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    > div {
+    }
+  }
+}
+
 @keyframes scrolling {
     100% {
         background-position: 256px 0px;
