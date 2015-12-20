@@ -6,7 +6,8 @@ import _ from 'whatwg-fetch';
 
 window.React = React;
 
-fetch(config.url).then(function(response){
+var refreshDashboard = function(){
+  fetch(config.url).then(function(response){
     console.log('Response', response);
     if (response.status >= 200 && response.status < 300) {
       return response;
@@ -35,3 +36,8 @@ fetch(config.url).then(function(response){
     console.log('Error: ', error);
     render(<Error msg={error.msg || "Generic error: Check javascript console for details"}/>, document.getElementById('content'));
   });
+};
+
+refreshDashboard();
+setInterval(refreshDashboard, config.interval);
+
