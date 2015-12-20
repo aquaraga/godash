@@ -36,8 +36,8 @@ describe('Pipeline', () => {
     let details = pipeline.props.children;
     expect(details[0]).to.deep.equal(
       <div className='stage-container'>
-        <Stage data={data.instances[0].stages[0]}/>
-        <Stage data={data.instances[0].stages[1]}/>
+        <Stage key={'0'} data={data.instances[0].stages[0]}/>
+        <Stage key={'1'} data={data.instances[0].stages[1]}/>
       </div>);
   });
 

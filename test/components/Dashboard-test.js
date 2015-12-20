@@ -26,6 +26,7 @@ describe('Dashboard', () => {
   	expect(list.length).to.equal(3);
   	list.forEach((pipeline, index) => {
   		expect(pipeline.type).to.equal(Pipeline);
+      expect(pipeline.key).to.equal(index.toString());
   		expect(pipeline.props.data).to.equal(pipelines[index]);
   	});
   });
