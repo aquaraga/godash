@@ -5,29 +5,17 @@ import _ from 'whatwg-fetch';
 
 window.React = React;
 
-const data = [{
-    "name": "Pipeline-1",
-    "instances": [{
-      "stages": [{
-        "name": "Stage-1",
-        "status": "Passed"
-      }, {
-        "name": "Stage-2",
-        "status": "Building"
-      }]
-    }]
-  }];
-
-
 fetch(config.url).then(function(response) {
     console.log('Received json');
     return response.json();
-  }).then(function(json) {
-    console.log('parsed json', json);
+  }).then(function(dashboard) {
+    return dashboard.map(pg => pg.pipelines).reduce((acc, p) => acc.concat(p));
+  }).then(function(pipelines){
+    return pipelines.filter(p => config.interests.indexOf(p.name) > -1);
+  }).then(function(interestedPipelines) {
+    render(
+      <Dashboard pipelines={interestedPipelines}/>, document.getElementById('content')
+    );    
   }).catch(function(ex) {
     console.log('parsing failed', ex);
   });
-
-render(
-  <Dashboard pipelines={data}/>, document.getElementById('content')
-);
