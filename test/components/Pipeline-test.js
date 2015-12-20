@@ -16,8 +16,9 @@ describe('Pipeline', () => {
       }]
     }]
   };
+  const drillDownStages = ["Stage-2"];
   const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(<Pipeline data={data}/>);
+  shallowRenderer.render(<Pipeline data={data} drill_down_stages={drillDownStages}/>);
   const pipeline = shallowRenderer.getRenderOutput();
 
   it('should have a div as container', () => {
@@ -36,8 +37,8 @@ describe('Pipeline', () => {
     let details = pipeline.props.children;
     expect(details[0]).to.deep.equal(
       <div className='stage-container'>
-        <Stage key={'0'} data={data.instances[0].stages[0]}/>
-        <Stage key={'1'} data={data.instances[0].stages[1]}/>
+        <Stage key={'0'} drillDown={false} data={data.instances[0].stages[0]}/>
+        <Stage key={'1'} drillDown={true} data={data.instances[0].stages[1]}/>
       </div>);
   });
 
