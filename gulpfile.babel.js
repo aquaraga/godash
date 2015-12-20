@@ -128,10 +128,10 @@ gulp.task('build', cb => {
 });
 
 gulp.task('server', cb => {
-  exec('http-server dist/index.html -p 1234', function (err, stdout, stderr) {
+  exec('http-server dist/. -p 1234', function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     cb(err);
   });
-  console.log('Started server on port 1234');
+  console.log('Started server on port 1234, please access http://localhost:1234/index.html');
 });
