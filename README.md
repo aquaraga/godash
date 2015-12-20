@@ -2,7 +2,8 @@
 
 # GoCD dashboard
 
-A minimal dashboard for GoCD builds
+A minimal dashboard for GoCD builds.
+Inspired from [dashy](https://github.com/chiku/dashy)
 
 ## Usage
 
