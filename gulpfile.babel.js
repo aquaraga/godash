@@ -17,19 +17,15 @@ import vars from 'postcss-simple-vars';
 import extend from 'postcss-simple-extend';
 import cssnano from 'cssnano';
 import htmlReplace from 'gulp-html-replace';
-import imagemin from 'gulp-imagemin';
-import pngquant from 'imagemin-pngquant';
 import runSequence from 'run-sequence';
 import {exec} from 'child_process';
 const paths = {
   bundle: 'app.js',
   srcJsx: 'src/Index.js',
   srcCss: 'src/**/*.css',
-  srcImg: 'src/images/**',
   srcLint: ['src/**/*.js', 'test/**/*.js'],
   dist: 'dist',
   distJs: 'dist/js',
-  distImg: 'dist/images',
   configJs: 'config/config.js'
 };
 
@@ -98,15 +94,6 @@ gulp.task('htmlReplace', () => {
   .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('images', () => {
-  gulp.src(paths.srcImg)
-    .pipe(imagemin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}],
-      use: [pngquant()]
-    }))
-    .pipe(gulp.dest(paths.distImg));
-});
 
 gulp.task('lint', () => {
   gulp.src(paths.srcLint)
@@ -125,12 +112,12 @@ gulp.task('watchTask', () => {
 });
 
 gulp.task('watch', cb => {
-  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'lint', 'images'], cb);
+  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'lint'], cb);
 });
 
 gulp.task('build', cb => {
   process.env.NODE_ENV = 'production';
-  runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'images', 'copy-config'], cb);
+  runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'copy-config'], cb);
 });
 
 gulp.task('server', cb => {

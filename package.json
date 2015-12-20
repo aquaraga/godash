@@ -37,7 +37,6 @@
     "history": "~1.13.x",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-router": "^1.0.2",
     "whatwg-fetch": "^0.10.1"
   },
   "devDependencies": {
@@ -56,13 +55,11 @@
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.0.0",
     "gulp-html-replace": "^1.5.1",
-    "gulp-imagemin": "^2.4.0",
     "gulp-notify": "^2.2.0",
     "gulp-postcss": "^6.0.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.4.0",
     "http-server": "^0.8.5",
-    "imagemin-pngquant": "^4.2.0",
     "jsdom-no-contextify": "^3.1.0",
     "mocha": "^2.3.0",
     "postcss-nested": "^1.0.0",
