@@ -134,7 +134,7 @@ gulp.task('build', cb => {
 });
 
 gulp.task('server', cb => {
-  exec('http-server dist/. -p 1234', function (err, stdout, stderr) {
+  exec('http-server dist/. --cors -p 1234', function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     cb(err);
