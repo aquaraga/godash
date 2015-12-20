@@ -24,7 +24,7 @@
     "test": "mocha --reporter nyan --compilers js:babel-core/register --recursive",
     "watch": "gulp watch",
     "build": "gulp build",
-    "start": "gulp server"
+    "start": "http-server dist/. --cors"
   },
   "author": "Kumar Iyer",
   "license": "MIT",

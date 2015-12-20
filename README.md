@@ -26,7 +26,9 @@ __When you are done, create a production ready version of the JS bundle:__
 
 __To run the server__
 
-`npm run start`
+`npm run start -- -p <port>`
+
+If no port is specified, as in `npm run start`, then 8080 would be used.
 
 ## License
 

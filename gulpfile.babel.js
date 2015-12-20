@@ -119,12 +119,3 @@ gulp.task('build', cb => {
   process.env.NODE_ENV = 'production';
   runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'copy-config'], cb);
 });
-
-gulp.task('server', cb => {
-  exec('http-server dist/. --cors -p 1234', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(err);
-  });
-  console.log('Started server on port 1234, please access http://localhost:1234/index.html');
-});
