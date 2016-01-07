@@ -98,14 +98,15 @@ describe('Stage', () => {
     beforeEach(() => {
       let jobDetails = [{"name": "Job-1", "status": "Passed"}, 
         {"name": "Job-2", "status": "Failed"}];
-      sinon.stub(Gocd, "fetchJobs", () => jobDetails);
+      sinon.stub(Gocd, "fetchJobs").withArgs("details").returns(jobDetails);
     });
 
 
     it('should not show stage status', () => {
       const data = {
         "name": "Stage-1",
-        "status": "Failed"
+        "status": "Failed",
+        "details_path": "details"
       };
       let stage = TestUtils.renderIntoDocument(<Stage drillDown={true} data={data}/>);
 
@@ -118,7 +119,8 @@ describe('Stage', () => {
     it('should stack job statuses', () => {
       const data = {
         "name": "Stage-1",
-        "status": "Failed"
+        "status": "Failed",
+        "details_path": "details"
       };
       let stage = TestUtils.renderIntoDocument(<Stage drillDown={true} data={data}/>);
       let box = TestUtils.findRenderedDOMComponentWithClass(stage, "stage");

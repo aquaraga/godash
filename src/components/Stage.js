@@ -15,7 +15,7 @@ export default React.createClass({
     let stageClass = classNames("stage", "fill-height-or-more", 
     	this.props.drillDown? undefined: allStatuses[this.props.data.status]);
 
-    let renderJobs = () => Gocd.fetchJobs().map((job, index) => (<div key={index} className={classNames("job", allStatuses[job.status])}></div>));
+    let renderJobs = () => Gocd.fetchJobs(this.props.data.details_path).map((job, index) => (<div key={index} className={classNames("job", allStatuses[job.status])}></div>));
 
     return (<div className={stageClass}>{this.props.drillDown? renderJobs() :this.props.data.name}</div>);
   }
