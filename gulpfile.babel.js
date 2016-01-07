@@ -26,7 +26,6 @@ const paths = {
   srcLint: ['src/**/*.js', 'test/**/*.js'],
   dist: 'dist',
   distJs: 'dist/js',
-  configJs: 'config/config.js'
 };
 
 const customOpts = {
@@ -90,7 +89,7 @@ gulp.task('styles', () => {
 
 gulp.task('htmlReplace', () => {
   gulp.src('index.html')
-  .pipe(htmlReplace({css: 'styles/main.css', js: ['config.js', 'js/app.js']}))
+  .pipe(htmlReplace({css: 'styles/main.css', js: ['js/app.js']}))
   .pipe(gulp.dest(paths.dist));
 });
 
@@ -101,10 +100,6 @@ gulp.task('lint', () => {
   .pipe(eslint.format());
 });
 
-gulp.task('copy-config', () => {
-  gulp.src(paths.configJs)
-  .pipe(gulp.dest(paths.dist));
-});
 
 gulp.task('watchTask', () => {
   gulp.watch(paths.srcCss, ['styles']);
@@ -117,5 +112,5 @@ gulp.task('watch', cb => {
 
 gulp.task('build', cb => {
   process.env.NODE_ENV = 'production';
-  runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'copy-config'], cb);
+  runSequence('clean', ['browserify', 'styles', 'htmlReplace'], cb);
 });

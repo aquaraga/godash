@@ -2,24 +2,7 @@ var path = require('path');
 var express = require('express');
 var app = express();
 var request = require('request');
-
-var config = {
-  gocd_url: "http://go:C0mplexPwd@172.18.34.3:8153",
-  interests: [
-    "PerformanceAnalytics-Build-Master",
-    "PerformanceAnalytics-Smoke",
-    "PerformanceAnalytics-QA",
-    "StoryboardService-Build-Master",
-    "StoryboardService-Smoke",
-    "StoryboardService-QA",
-    "StoryboardWeb-Build-Master",
-    "StoryboardWeb-Smoke",
-    "StoryboardWeb-QA",
-    "DBMigration-Build",
-    "LandingPageSeed-Build",
-    "AuthProxy",
-  ]
-};
+var config = require('./config/config');
 
 //TODO Send the error in the response
 var fetchFromGocd = function(resFromServer){
@@ -38,7 +21,6 @@ var fetchFromGocd = function(resFromServer){
 
 var fetchJobsFromGocd = function(resFromServer, pipeline, stage, pipelineCounter, stageCounter) {
   var stageDetailsUrl = [config.gocd_url, "go/api/stages", pipeline, stage, "instance", pipelineCounter, stageCounter ].join("/");
-  console.log("Stage details url: " + stageDetailsUrl);
   request({url: stageDetailsUrl, json: true}, function (error, response, stageDetails) {
     if (error || response.statusCode !== 200) {
       return {error: error};
@@ -58,9 +40,9 @@ app.get('/stageDetails.json', function (req, res) {
 });
 
 
-var server = app.listen(3100, function () {
+var server = app.listen(config.port, function () {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log('App listening at http://%s:%s', host, port);
 });

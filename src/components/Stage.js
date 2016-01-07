@@ -17,11 +17,11 @@ export default React.createClass({
 
   componentDidMount: function() {
     if (this.props.drillDown) {
-      console.log('Details path: ' + this.props.data.details_path);
       Gocd.fetchJobs(this.props.data.details_path, (function(jobs){
-        console.log('Obtained jobs: ' + jobs);
         this.setState({jobs: jobs});
-      }).bind(this));  
+      }).bind(this),
+      //TODO: error handling 
+      function(){});  
     }
   },
 

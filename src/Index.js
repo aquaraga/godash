@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import Dashboard from './components/Dashboard';
 import Error from './components/Error';
 import _ from 'whatwg-fetch';
+import config from '../config/config';
 
 window.React = React;
 

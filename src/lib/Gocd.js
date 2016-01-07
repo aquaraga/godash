@@ -16,7 +16,7 @@ var parseJSON = function(response) {
 };
 
 export default {
-	fetchJobs: function (stageDetailsPath, onSuccess) {
+	fetchJobs: function (stageDetailsPath, onSuccess, onFailure) {
 		var stageDetailsArray = /\/go\/pipelines\/([\w-]+)\/([\w-]+)\/([\w-]+)\/([\w-]+)/.exec(stageDetailsPath);
 		var pipeline = stageDetailsArray[1];
 		var pipelineCounter = stageDetailsArray[2];
@@ -25,7 +25,6 @@ export default {
 
     var params = {pipeline:pipeline, stage:stage, pipelineCounter:pipelineCounter, stageCounter:stageCounter};
 		var url = "/stageDetails.json?" + queryString.stringify(params);
-    console.log("Url for fetching jobs: " + url);
 
     require("whatwg-fetch");
 		fetch(url)
@@ -36,7 +35,7 @@ export default {
     })
     .catch(function(error) {
       console.log('Error: ', error);
-      render(<Error msg={error || "Generic error: Check javascript console for details"}/>, document.getElementById('content'));
+      onFailure(error);
     });
 
 	}
