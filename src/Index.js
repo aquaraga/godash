@@ -6,35 +6,34 @@ import _ from 'whatwg-fetch';
 
 window.React = React;
 
+var checkStatus = function (response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    var error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
+};
+
+var parseJSON = function(response) {
+  return response.json()
+};
+
+var showPipelines = function(json) {
+  render(
+      <Dashboard pipelines={json.pipelines} stage_detail_interests={config.stage_detail_interests}/>, document.getElementById('content')
+  );
+};
+
 var refreshDashboard = function(){
-  fetch(config.gocd_dashboard).then(function(response){
-    console.log('Response', response);
-    if (response.status >= 200 && response.status < 300) {
-      return response;
-    } else {
-      var error = new Error(response.statusText);
-      error.response = response;
-      error.msg = "Error contacting Gocd, response code: " + response.status;
-      throw error;
-    }
-  }).then(function(response) {
-    return response.json();
-  }).then(function(dashboard) {
-    return dashboard.map(pg => pg.pipelines).reduce((acc, p) => acc.concat(p));
-  }).then(function(pipelines){
-    return pipelines.filter(p => config.interests.indexOf(p.name) > -1);
-  }).then(function(interestedPipelines) {
-    if (interestedPipelines.length == 0) {
-      var error = new Error();
-      error.msg = "No matching pipelines found, check config.js";
-      throw error;
-    }
-    render(
-      <Dashboard pipelines={interestedPipelines} stage_detail_interests={config.stage_detail_interests}/>, document.getElementById('content')
-    );    
-  }).catch(function(error) {
-    console.log('Error: ', error);
-    render(<Error msg={error.msg || "Generic error: Check javascript console for details"}/>, document.getElementById('content'));
+  fetch('http://localhost:3100/dashboard.json')
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(showPipelines)
+    .catch(function(error) {
+      console.log('Error: ', error);
+      render(<Error msg={error.msg || "Generic error: Check javascript console for details"}/>, document.getElementById('content'));
   });
 };
 
