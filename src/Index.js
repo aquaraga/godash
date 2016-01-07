@@ -17,7 +17,7 @@ var checkStatus = function (response) {
 };
 
 var parseJSON = function(response) {
-  return response.json()
+  return response.json();
 };
 
 var showPipelines = function(json) {
