@@ -4,7 +4,7 @@ var app = express();
 var request = require('request');
 
 var config = {
-  gocd_dashboard: "http://go:C0mplexPwd@172.18.34.3:8153/go/dashboard.json",
+  gocd_url: "http://go:C0mplexPwd@172.18.34.3:8153",
   interests: [
     "PerformanceAnalytics-Build-Master",
     "PerformanceAnalytics-Smoke",
@@ -21,9 +21,9 @@ var config = {
   ]
 };
 
-
+//TODO Send the error in the response
 var fetchFromGocd = function(resFromServer){
-  request({url: config.gocd_dashboard, json: true}, function (error, response, dashboard) {
+  request({url: config.gocd_url + "/go/dashboard.json", json: true}, function (error, response, dashboard) {
     if (error || response.statusCode !== 200) {
       return {error: error};
     }
@@ -36,10 +36,25 @@ var fetchFromGocd = function(resFromServer){
   });
 };
 
+var fetchJobsFromGocd = function(resFromServer, pipeline, stage, pipelineCounter, stageCounter) {
+  var stageDetailsUrl = [config.gocd_url, "go/api/stages", pipeline, stage, "instance", pipelineCounter, stageCounter ].join("/");
+  console.log("Stage details url: " + stageDetailsUrl);
+  request({url: stageDetailsUrl, json: true}, function (error, response, stageDetails) {
+    if (error || response.statusCode !== 200) {
+      return {error: error};
+    }
+    return resFromServer.send({jobs: stageDetails.jobs});
+  });
+}
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/dashboard.json', function(req, res){
   fetchFromGocd(res);
+});
+
+app.get('/stageDetails.json', function (req, res) {
+  fetchJobsFromGocd(res, req.query.pipeline, req.query.stage, req.query.pipelineCounter, req.query.stageCounter);
 });
 
 
