@@ -27,7 +27,7 @@ var showPipelines = function(json) {
 };
 
 var refreshDashboard = function(){
-  fetch('http://localhost:3100/dashboard.json')
+  fetch('/dashboard.json')
     .then(checkStatus)
     .then(parseJSON)
     .then(showPipelines)

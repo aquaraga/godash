@@ -1,4 +1,4 @@
-import _ from 'whatwg-fetch';
+import queryString from 'query-string';
 
 
 var checkStatus = function (response) {
@@ -23,11 +23,12 @@ export default {
 		var stage = stageDetailsArray[3];
 		var stageCounter = stageDetailsArray[4];
 
-		var url = new URL("http://localhost:3100/stageDetails.json"),
-       params = {pipeline:pipeline, stage:stage, pipelineCounter:pipelineCounter, stageCounter:stageCounter};
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    var params = {pipeline:pipeline, stage:stage, pipelineCounter:pipelineCounter, stageCounter:stageCounter};
+		var url = "/stageDetails.json?" + queryString.stringify(params);
+    console.log("Url for fetching jobs: " + url);
 
-		/*fetch(url)
+    require("whatwg-fetch");
+		fetch(url)
     .then(checkStatus)
     .then(parseJSON)
     .then(function(stageDetails) {
@@ -35,8 +36,8 @@ export default {
     })
     .catch(function(error) {
       console.log('Error: ', error);
-      //render(<Error msg={error.msg || "Generic error: Check javascript console for details"}/>, document.getElementById('content'));
-    });*/
+      render(<Error msg={error || "Generic error: Check javascript console for details"}/>, document.getElementById('content'));
+    });
 
 	}
 };

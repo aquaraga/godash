@@ -16,18 +16,20 @@ export default React.createClass({
   },
 
   componentDidMount: function() {
-    /*if (this.props.drillDown) {
-      Gocd.fetchJobs(this.props.data.details_path, function(jobs){
+    if (this.props.drillDown) {
+      console.log('Details path: ' + this.props.data.details_path);
+      Gocd.fetchJobs(this.props.data.details_path, (function(jobs){
+        console.log('Obtained jobs: ' + jobs);
         this.setState({jobs: jobs});
-      });  
-    }*/
+      }).bind(this));  
+    }
   },
 
   render: function() {
     let stageClass = classNames("stage", "fill-height-or-more", 
     	this.props.drillDown? undefined: allStatuses[this.props.data.status]);
 
-    let renderJobs = () => this.state.jobs.map((job, index) => (<div key={index} className={classNames("job", allStatuses[job.status])}></div>));
+    let renderJobs = () => this.state.jobs.map((job, index) => (<div key={index} className={classNames("job", allStatuses[job.result])}>{job.name}</div>));
     return (<div className={stageClass}>{this.props.drillDown? renderJobs() :this.props.data.name}</div>);
   }
 });
