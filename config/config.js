@@ -1,3 +1,4 @@
+//Configure me
 module.exports = {
   gocd_url: "http://username:password@ip:port",
   interests: [
