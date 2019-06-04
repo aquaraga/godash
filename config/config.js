@@ -1,23 +1,13 @@
 module.exports = {
-  gocd_url: "http://go:C0mplexPwd@172.18.34.3:8153",
+  gocd_url: "http://username:password@ip:port",
   interests: [
-    "PerformanceAnalytics-Build-Master",
-    "PerformanceAnalytics-Smoke",
-    "PerformanceAnalytics-QA",
-    "StoryboardService-Build-Master",
-    "StoryboardService-Smoke",
-    "StoryboardService-QA",
-    "StoryboardWeb-Build-Master",
-    "StoryboardWeb-Smoke",
-    "StoryboardWeb-QA",
-    "DBMigration-Build",
-    "LandingPageSeed-Build",
-    "AuthProxy",
+    "pipeline1",
+    "pipeline2"
   ],
   stage_detail_interests: [
     {
-      pipeline: "PerformanceAnalytics-QA",
-      stages: ["FunctionalUiTests"]
+      pipeline: "pipeline3",
+      stages: ["stage31"]
     }
   ],
   interval: 30000,
