@@ -7,6 +7,9 @@ Inspired from [dashy](https://github.com/chiku/dashy)
 
 ## Usage
 
+__Configure GoCD URL and pipelines:__
+
+Update config/config.js with the relevant parameters
 
 __Install the dependencies:__
 
